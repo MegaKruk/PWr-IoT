@@ -1,0 +1,22 @@
+zad.5
+
+root@raspberrypi:/home/pi# ip addr show dev bt0
+3: bt0: <POINTOPOINT,MULTICAST,UP,LOWER_UP> mtu 1280 qdisc noqueue state UNKNOWN group default qlen 1
+    link/6lowpan 5c:f3:70:ff:fe:87:18:f1 peer 00:00:00:00:00:00:00:00
+    inet6 2001:db8::1/32 scope global 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::5ef3:70ff:fe87:18f1/64 scope link 
+       valid_lft forever preferred_lft forever
+root@raspberrypi:/home/pi# hciconfig
+hci0:	Type: Primary  Bus: USB
+	BD Address: 5C:F3:70:87:18:F1  ACL MTU: 1021:8  SCO MTU: 64:1
+	UP RUNNING 
+	RX bytes:9621 acl:158 sco:0 events:663 errors:0
+	TX bytes:58588 acl:674 sco:0 commands:274 errors:0
+
+z.6
+
+miniterm.py /dev/ttyACM0 115200
+echo "connect 0:47:C2:8A:92:6A 1" > /sys/kernel/debug/bluetooth/6lowpan_control
+ping fe80::0247:C2FF:FE8A:926A -c 1 -I bt0
+
